@@ -1,10 +1,23 @@
 import { ConfigProvider } from "antd";
-import { NewTaskForm } from "./components";
 import { theme } from "antd";
-import { useDarkmode } from "./hooks";
+import { v4 as uuid } from "uuid";
+
+import { NewTaskForm, Task } from "./components";
+import { useAppDispatch, useAppSelector, useDarkmode } from "./hooks";
+import { tasksActions } from "./store/tasks/slice";
 
 const App = () => {
   const { isDarkMode } = useDarkmode();
+  const { tasks } = useAppSelector((state) => state.tasks);
+
+  const dispatch = useAppDispatch();
+
+  const handleFormSubmission = (task: string) => {
+    const id = uuid();
+    const newTask = { id, task, isDone: false };
+    dispatch(tasksActions.addNewTask(newTask));
+  };
+
   const { darkAlgorithm, defaultAlgorithm } = theme;
 
   return (
@@ -14,7 +27,12 @@ const App = () => {
       }}
     >
       <div className="mx-auto mt-6 flex w-96 flex-col justify-center">
-        <NewTaskForm onSubmit={undefined} />
+        <NewTaskForm onSubmit={handleFormSubmission} />
+        <div>
+          {tasks.map((taskData) => (
+            <Task key={taskData.id} />
+          ))}
+        </div>
       </div>
     </ConfigProvider>
   );

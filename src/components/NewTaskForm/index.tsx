@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import { useFormik } from "formik";
 import { FC } from "react";
+
 import { NewTaskFormProps, NewTaskFormValues } from "./types";
 
 export const NewTaskForm: FC<NewTaskFormProps> = ({ onSubmit }) => {
@@ -23,7 +24,9 @@ export const NewTaskForm: FC<NewTaskFormProps> = ({ onSubmit }) => {
         placeholder="What are you planning to do?"
         onChange={formik.handleChange}
       />
-      <Button disabled={isSubmitButtonDisabled}>To do</Button>
+      <Button disabled={isSubmitButtonDisabled} onClick={formik.submitForm}>
+        To do
+      </Button>
     </div>
   );
 };
