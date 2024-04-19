@@ -15,8 +15,8 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   const handleFormSubmission = (task: string) => {
-    const id = uuid();
-    const newTask = { id, task, isDone: false };
+    const taskId = uuid();
+    const newTask = { id: taskId, task, isDone: false };
 
     dispatch(tasksActions.pushTodo(newTask));
 
@@ -58,6 +58,24 @@ const App = () => {
     );
   });
 
+  const doneList = done.map((taskData, index) => {
+    const handleButtonClick = () => {
+      const doneItems = Array.from(done);
+      doneItems.splice(index, 1);
+      dispatch(tasksActions.setDone(doneItems));
+    };
+
+    return (
+      <Task
+        key={taskData.id}
+        data={taskData}
+        index={index}
+        done
+        onClick={handleButtonClick}
+      />
+    );
+  });
+
   return (
     <ConfigProvider
       theme={{
@@ -82,14 +100,7 @@ const App = () => {
           droppableId="doneWrapper"
           onDragEnd={handleTodoListDragEnd}
         >
-          {done.map((taskData, index) => (
-            <Task
-              key={taskData.id}
-              data={taskData}
-              index={index}
-              onClick={() => "lol"}
-            />
-          ))}
+          {doneList}
         </DragAndDropList>
       </div>
     </ConfigProvider>

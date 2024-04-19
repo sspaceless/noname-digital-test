@@ -14,6 +14,9 @@ export const tasksSlice = createSlice({
     setTodo(state, action: PayloadAction<Task[]>) {
       state.todo = action.payload;
     },
+    setDone(state, action: PayloadAction<Task[]>) {
+      state.done = action.payload;
+    },
     pushTodo(state, action: PayloadAction<Task>) {
       state.todo.unshift(action.payload);
     },
