@@ -4,22 +4,14 @@
 
 
 :root {
-  --foreground-rgb: #000000;
-  --background-color: #ffffff;
+  --foreground-rgb: #ffffff;
+  --background-color: #000000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: #ffffff;
-    --background-color: #000000;
-  }
-}
 
 body {
   color: var(--foreground-rgb);
   background: var(--background-color);
-
-
 }
 
 .ant-collapse-content-box {

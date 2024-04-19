@@ -1,16 +1,14 @@
-import { Collapse, ConfigProvider, notification } from "antd";
-import { theme } from "antd";
+import { Collapse, notification } from "antd";
 import { DropResult } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
 
 import { DragAndDropList, NewTaskForm, Task } from "./components";
-import { useAppDispatch, useAppSelector, useDarkmode } from "./hooks";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import { tasksActions } from "./store/tasks/slice";
 
 const App = () => {
   const [notificationApi, notificationContext] = notification.useNotification();
   const { todo, done } = useAppSelector((state) => state.tasks);
-  const { isDarkMode } = useDarkmode();
 
   const dispatch = useAppDispatch();
 
@@ -102,11 +100,7 @@ const App = () => {
   const hasDoneTasks = done.length > 0;
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-      }}
-    >
+    <>
       {notificationContext}
 
       <div className="mx-auto mt-6 flex w-96 flex-col justify-center gap-4">
@@ -119,7 +113,7 @@ const App = () => {
         </DragAndDropList>
         {hasDoneTasks && <Collapse ghost items={[collapseItem]} />}
       </div>
-    </ConfigProvider>
+    </>
   );
 };
 
