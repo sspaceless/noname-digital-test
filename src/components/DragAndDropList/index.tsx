@@ -13,7 +13,7 @@ export const DragAndDropList: FC<DragAndDropListProps> = ({
       <Droppable droppableId={droppableId}>
         {(provided) => (
           <ul
-            className="mt-4 flex flex-col gap-2"
+            className="flex flex-col gap-2"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >

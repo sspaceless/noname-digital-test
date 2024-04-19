@@ -1,4 +1,4 @@
-import { ConfigProvider, Divider, notification } from "antd";
+import { Collapse, ConfigProvider, notification } from "antd";
 import { theme } from "antd";
 import { DropResult } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
@@ -9,9 +9,9 @@ import { tasksActions } from "./store/tasks/slice";
 
 const App = () => {
   const [notificationApi, notificationContext] = notification.useNotification();
+  const { todo, done } = useAppSelector((state) => state.tasks);
   const { isDarkMode } = useDarkmode();
 
-  const { todo, done } = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
 
   const handleFormSubmission = (task: string) => {
@@ -38,14 +38,17 @@ const App = () => {
     dispatch(tasksActions.setTodo(items));
   };
 
-  const { darkAlgorithm, defaultAlgorithm } = theme;
-
   const todoList = todo.map((taskData, index) => {
     const handleDoneButtonClick = () => {
       const todoItems = Array.from(todo);
       const [removedItem] = todoItems.splice(index, 1);
       dispatch(tasksActions.setTodo(todoItems));
       dispatch(tasksActions.pushDone(removedItem));
+
+      notificationApi.success({
+        message: "Task moved to Done",
+        placement: "bottomRight",
+      });
     };
 
     return (
@@ -63,6 +66,11 @@ const App = () => {
       const doneItems = Array.from(done);
       doneItems.splice(index, 1);
       dispatch(tasksActions.setDone(doneItems));
+
+      notificationApi.success({
+        message: "Task deleted",
+        placement: "bottomRight",
+      });
     };
 
     return (
@@ -76,32 +84,40 @@ const App = () => {
     );
   });
 
-  return (
-    <ConfigProvider
-      theme={{
-        algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-      }}
-    >
-      {notificationContext}
-
-      <div className="mx-auto mt-6 flex w-96 flex-col justify-center">
-        <NewTaskForm onSubmit={handleFormSubmission} />
-
-        <DragAndDropList
-          droppableId="todoWrapper"
-          onDragEnd={handleTodoListDragEnd}
-        >
-          {todoList}
-        </DragAndDropList>
-
-        <Divider />
-
+  const collapseItem = {
+    key: "1",
+    label: `Your done tasks (${done.length})`,
+    children: (
+      <div className="mt-2">
         <DragAndDropList
           droppableId="doneWrapper"
           onDragEnd={handleTodoListDragEnd}
         >
           {doneList}
         </DragAndDropList>
+      </div>
+    ),
+  };
+
+  const hasDoneTasks = done.length > 0;
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
+      {notificationContext}
+
+      <div className="mx-auto mt-6 flex w-96 flex-col justify-center gap-4">
+        <NewTaskForm onSubmit={handleFormSubmission} />
+        <DragAndDropList
+          droppableId="todoWrapper"
+          onDragEnd={handleTodoListDragEnd}
+        >
+          {todoList}
+        </DragAndDropList>
+        {hasDoneTasks && <Collapse ghost items={[collapseItem]} />}
       </div>
     </ConfigProvider>
   );
