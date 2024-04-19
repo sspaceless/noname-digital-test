@@ -11,6 +11,7 @@ export const NewTaskForm: FC<NewTaskFormProps> = ({ onSubmit }) => {
     },
     onSubmit: (values) => {
       onSubmit(values.task);
+      formik.resetForm();
     },
   });
 

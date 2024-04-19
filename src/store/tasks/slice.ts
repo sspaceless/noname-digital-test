@@ -13,6 +13,10 @@ export const tasksSlice = createSlice({
     addNewTask(state, action: PayloadAction<Task>) {
       state.tasks.unshift(action.payload);
     },
+
+    setTasks(state, action: PayloadAction<Task[]>) {
+      state.tasks = action.payload;
+    },
   },
 });
 
