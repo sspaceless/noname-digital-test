@@ -1,30 +1,40 @@
-# React + TypeScript + Vite
+## To-Do List | [Noname Digital](https://noname.digital/) Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Technologies:
 
-Currently, two official plugins are available:
+- [TypesScript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [Redux](https://redux.js.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind Css](https://tailwindcss.com/)
+- [Ant Design](https://ant.design/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Run locally:
 
-## Expanding the ESLint configuration
+```bash
+# installing dependencies:
+yarn install
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# start in dev mode:
+yarn dev
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+#build and start for production:
+yarn build
+yarn preview
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+App will be available at [localhost:5173](http://localhost:5173)
+
+### Run in Docker:
+
+Install Docker and docker-compose.
+
+```bash
+# build and start:
+docker-compose up -d
+
+# stop container:
+docker-compose down
+```
+
+App will be available at [localhost:3000](http://localhost:3000)
