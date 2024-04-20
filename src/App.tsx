@@ -14,7 +14,7 @@ const App = () => {
 
   const handleFormSubmission = (task: string) => {
     const taskId = uuid();
-    const newTask = { id: taskId, task, isDone: false };
+    const newTask = { id: taskId, task };
 
     dispatch(tasksActions.pushTodo(newTask));
 
@@ -34,6 +34,18 @@ const App = () => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     dispatch(tasksActions.setTodo(items));
+  };
+
+  const handleDoneListDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(done);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    dispatch(tasksActions.setDone(items));
   };
 
   const todoList = todo.map((taskData, index) => {
@@ -89,7 +101,7 @@ const App = () => {
       <div className="mt-2">
         <DragAndDropList
           droppableId="doneWrapper"
-          onDragEnd={handleTodoListDragEnd}
+          onDragEnd={handleDoneListDragEnd}
         >
           {doneList}
         </DragAndDropList>
