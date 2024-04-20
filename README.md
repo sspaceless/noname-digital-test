@@ -1,5 +1,7 @@
 ## To-Do List | [Noname Digital](https://noname.digital/) Test
 
+Demo already available at [todo.spaceless.me](https://todo.spaceless.me)
+
 ### Technologies:
 
 - [TypesScript](https://www.typescriptlang.org/)
@@ -14,10 +16,14 @@
 ```bash
 # installing dependencies:
 yarn install
+```
 
+```bash
 # start in dev mode:
 yarn dev
+```
 
+```bash
 #build and start for production:
 yarn build
 yarn preview
@@ -32,7 +38,9 @@ Install Docker and docker-compose.
 ```bash
 # build and start:
 docker-compose up -d
+```
 
+```bash
 # stop container:
 docker-compose down
 ```
