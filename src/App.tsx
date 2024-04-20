@@ -103,7 +103,8 @@ const App = () => {
     <>
       {notificationContext}
 
-      <div className="mx-auto mt-6 flex w-96 flex-col justify-center gap-4">
+      <div className="mx-auto mt-6 flex w-11/12 flex-col justify-center gap-4 sm:w-96">
+        <span className="text-center text-xl"> todo :)</span>
         <NewTaskForm onSubmit={handleFormSubmission} />
         <DragAndDropList
           droppableId="todoWrapper"
